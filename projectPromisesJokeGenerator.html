@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promises BadJoke</title>
+    <link rel="stylesheet" href="dadjokestyle.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Dad jokes</h1>
+        <section class="APIBody"></section>
+        <button id="fetchJoke">Get another Joke</button>
+    </div>
+    <script>
+        let mySec = document.querySelector(".APIBody");
+        let myBut = document.getElementById("fetchJoke");
+        let myUrl = "https://icanhazdadjoke.com/";
+       /* function myFetch () {
+             fetch(myUrl, {
+                headers : {
+                    Accept : "application/json",
+                },
+             })
+             .then((res) => {
+                console.log(res);
+                return res.json();
+            })
+            .then((data) => {
+                console.log(data.joke);
+                 mySec.innerHTML = `<p>${data.joke}</p>`;
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        }*/
+       async function myFetch() {
+        let myRes = await fetch(myUrl, {
+            headers : {
+                Accept : "application/json",
+            },
+        });
+        let myTitle = await myRes.json();
+        console.log(myTitle.joke);
+        mySec.innerHTML = `<p>${myTitle.joke}</p>`;
+       }
+        myFetch();
+        myBut.addEventListener('click', myFetch);
+    </script>
+</body>
+</html>
