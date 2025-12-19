@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Promises BadJoke</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Welcome to Dad jokes</h1>
+    <section class="APIBody"></section>
+    <button id="fetchJoke">Get another Joke</button>
+  </div>
+  <script>
+    let mySec = document.querySelector(".APIBody");
+    let myBut = document.getElementById("fetchJoke");
+    let myUrl = "https://icanhazdadjoke.com/";
+
+    async function myFetch() {
+      try {
+        let myRes = await fetch(myUrl, {
+          headers: {
+            Accept: "application/json",
+            "User-Agent": "Ankit Samanta Portfolio Project"
+          },
+        });
+
+        let myTitle = await myRes.json();
+        mySec.innerHTML = `<p>${myTitle.joke}</p>`;
+      } catch (error) {
+        mySec.innerHTML = "Failed to load joke";
+        console.error(error);
+      }
+    }
+
+    myFetch();
+    myBut.addEventListener("click", myFetch);
+  </script>
+
+</body>
+
+</html>
