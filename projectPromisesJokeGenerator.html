@@ -15,22 +15,31 @@
         <button id="fetchJoke">Get another Joke</button>
     </div>
     <script>
-        let mySec = document.querySelector(".APIBody");
-        let myBut = document.getElementById("fetchJoke");
-        let myUrl = "https://icanhazdadjoke.com/";
-        async function myFetch() {
-            let myRes = await fetch(myUrl, {
-                headers: {
-                    Accept: "application/json",
-                },
-            });
-            let myTitle = await myRes.json();
-            console.log(myTitle.joke);
-            mySec.innerHTML = `<p>${myTitle.joke}</p>`;
-        }
-        myFetch();
-        myBut.addEventListener('click', myFetch);
-    </script>
+  let mySec = document.querySelector(".APIBody");
+  let myBut = document.getElementById("fetchJoke");
+  let myUrl = "https://icanhazdadjoke.com/";
+
+  async function myFetch() {
+    try {
+      let myRes = await fetch(myUrl, {
+        headers: {
+          Accept: "application/json",
+          "User-Agent": "Ankit Samanta Portfolio Project"
+        },
+      });
+
+      let myTitle = await myRes.json();
+      mySec.innerHTML = `<p>${myTitle.joke}</p>`;
+    } catch (error) {
+      mySec.innerHTML = "Failed to load joke";
+      console.error(error);
+    }
+  }
+
+  myFetch();
+  myBut.addEventListener("click", myFetch);
+</script>
+
 </body>
 
 </html>
